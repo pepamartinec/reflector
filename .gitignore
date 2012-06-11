@@ -1,0 +1,9 @@
+##### ECLIPSE PROJECT FILES #####
+/.buildpath
+/.project
+/.settings
+
+##### COMPOSER STUFF #####
+/composer.phar
+/composer.lock
+/vendor

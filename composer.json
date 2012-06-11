@@ -1,0 +1,19 @@
+{
+    "name"        : "joker806/reflector",
+    "type"        : "library",
+    "description" : "A static code reflection tool for PHP",
+    "license"     : "GPL-3.0",
+    "authors"     : [{
+    	"name" : "Josef Martinec", "email" : "joker806@gmail.com"
+    }],
+    
+    "require" : {
+        "php" : ">=5.3"
+    },
+    
+    "autoload" : {
+        "psr-0" : {
+            "Reflector" : "src/"
+        }
+    }
+}
