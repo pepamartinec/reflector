@@ -60,8 +60,8 @@ class ReflectionFactory
     /**
      * Analyzes given source code and returns found namespaces
      *
-     * @param  Tokenizer     $t
-     * @param  AliasResolver $r
+     * @param Tokenizer     $t
+     * @param AliasResolver $r
      *
      * @throws InvalidSyntaxException
      */
@@ -90,7 +90,6 @@ class ReflectionFactory
                     $localNs[$name] = $namespace;
                 } while ($t->getToken());
 
-
             // no namespace specified
             // whole code has to be in global namespace
             } else {
@@ -117,7 +116,7 @@ class ReflectionFactory
     /**
      * Checks whether the namespace has been already analyzed.
      *
-     * @param string $name
+     * @param  string $name
      * @return bool
      */
     public function hasNamespace($name)
@@ -128,59 +127,59 @@ class ReflectionFactory
     /**
      * Checks whether the interface has been already analyzed
      *
-     * @param string $name
+     * @param  string $name
      * @return bool
      */
     public function hasInterface($name)
     {
-    	list($nsName, $itName) = Tokenizer::explodeName($name);
+        list($nsName, $itName) = Tokenizer::explodeName($name);
 
-    	if (!$this->hasNamespace($nsName)) {
-    		return false;
-    	}
+        if (!$this->hasNamespace($nsName)) {
+            return false;
+        }
 
-    	$namespace = $this->getNamespace($nsName);
+        $namespace = $this->getNamespace($nsName);
 
-    	if(!$namespace->hasItem($itName)) {
-    		return false;
-    	}
+        if (!$namespace->hasItem($itName)) {
+            return false;
+        }
 
-    	$item = $namespace->getItem($itName);
+        $item = $namespace->getItem($itName);
 
-    	return $item instanceof InterfaceReflectionInterface
-    	   && !$item instanceof DummyReflectionInterface;
+        return $item instanceof InterfaceReflectionInterface
+           && !$item instanceof DummyReflectionInterface;
     }
 
     /**
      * Checks whether the class has been already analyzed
      *
-     * @param string $name
+     * @param  string $name
      * @return bool
      */
     public function hasClass($name)
     {
-    	list($nsName, $itName) = Tokenizer::explodeName($name);
+        list($nsName, $itName) = Tokenizer::explodeName($name);
 
-    	if (!$this->hasNamespace($nsName)) {
-    		return false;
-    	}
+        if (!$this->hasNamespace($nsName)) {
+            return false;
+        }
 
-    	$namespace = $this->getNamespace($nsName);
+        $namespace = $this->getNamespace($nsName);
 
-    	if(!$namespace->hasItem($itName)) {
-    		return false;
-    	}
+        if (!$namespace->hasItem($itName)) {
+            return false;
+        }
 
-    	$item = $namespace->getItem($itName);
+        $item = $namespace->getItem($itName);
 
-    	return $item instanceof ClassReflectionInterface
-    	   && !$item instanceof DummyReflectionInterface;
+        return $item instanceof ClassReflectionInterface
+           && !$item instanceof DummyReflectionInterface;
     }
 
     /**
      * Returns namespace reflection
      *
-     * @param string $name fully classified namespace name
+     * @param  string                       $name fully classified namespace name
      * @return NamespaceReflectionInterface
      */
     public function getNamespace($name)
@@ -196,7 +195,7 @@ class ReflectionFactory
     /**
      * Returns reflection for given interface
      *
-     * @param  string $name fully qualified interface name
+     * @param  string                       $name fully qualified interface name
      * @return InterfaceReflectionInterface
      *
      * @throws InvalidItemException
@@ -229,7 +228,7 @@ class ReflectionFactory
     /**
      * Returns reflection for given class
      *
-     * @param  string $name fully qualified class name
+     * @param  string                   $name fully qualified class name
      * @return ClassReflectionInterface
      *
      * @throws InvalidItemException

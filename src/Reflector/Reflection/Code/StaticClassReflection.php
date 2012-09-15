@@ -2,7 +2,6 @@
 namespace Reflector\Reflection\Code;
 
 use Reflector\AliasResolver;
-use Reflector\ReflectionFactory;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Reflection\StaticReflectionInterface;
@@ -61,8 +60,8 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
      * Constructs new object reflection
      *
      * @param NamespaceReflectionInterface $namespace
-     * @param Tokenizer $t
-     * @param AliasResolver $r
+     * @param Tokenizer                    $t
+     * @param AliasResolver                $r
      *
      * @throws UnexpectedTokenException
      */

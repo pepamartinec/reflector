@@ -86,7 +86,7 @@ class AliasResolver
      * Translates given name to fully specified name
      *
      * @param  NamespaceReflectionInterface $fileName
-     * @param  string $name
+     * @param  string                       $name
      * @return string
      */
     public function resolveName(NamespaceReflectionInterface $namespace, $name)
@@ -111,8 +111,8 @@ class AliasResolver
     /**
      * Returns reflection for given interface
      *
-     * @param  NamespaceReflectionInterface $ns the current namespace
-     * @param  string $name an interface name
+     * @param  NamespaceReflectionInterface $ns   the current namespace
+     * @param  string                       $name an interface name
      * @return InterfaceReflectionInterface
      *
      * @throws InvalidItemException
@@ -127,8 +127,8 @@ class AliasResolver
     /**
      * Returns reflection for given class
      *
-     * @param  NamespaceReflectionInterface $ns the current namespace
-     * @param  string $name fully qualified class name
+     * @param  NamespaceReflectionInterface $ns   the current namespace
+     * @param  string                       $name fully qualified class name
      * @return ClassReflectionInterface
      *
      * @throws InvalidItemException

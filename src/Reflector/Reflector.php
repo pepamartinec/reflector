@@ -75,7 +75,7 @@ class Reflector
     /**
      * Returns namespace reflection
      *
-     * @param string $name fully classified namespace name
+     * @param  string                            $name fully classified namespace name
      * @return NamespaceReflectionInterface|null
      */
     public function getNamespace($name)
@@ -91,7 +91,7 @@ class Reflector
     /**
      * Returns reflection for given interface
      *
-     * @param string $name fully qualified interface name
+     * @param  string                            $name fully qualified interface name
      * @return InterfaceReflectionInterface|null
      */
     public function getInterface($name)
@@ -107,7 +107,7 @@ class Reflector
     /**
      * Returns reflection for given class
      *
-     * @param string $name fully qualified class name
+     * @param  string                        $name fully qualified class name
      * @return ClassReflectionInterface|null
      */
     public function getClass($name)
@@ -120,4 +120,3 @@ class Reflector
         }
     }
 }
-

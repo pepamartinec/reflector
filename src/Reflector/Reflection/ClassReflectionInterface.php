@@ -96,4 +96,3 @@ interface ClassReflectionInterface extends ReflectionInterface
      */
     public function isFinal();
 }
-

@@ -12,28 +12,28 @@ class ClassParentIterator implements \Iterator
      */
     protected $options;
 
-	/**
-	 * @var ClassReflectionInterface
-	 */
-	protected $class;
+    /**
+     * @var ClassReflectionInterface
+     */
+    protected $class;
 
-	/**
-	 * @var ClassReflectionInterface
-	 */
-	protected $current;
+    /**
+     * @var ClassReflectionInterface
+     */
+    protected $current;
 
    /**
      * Class constructor
      *
      * @param ClassReflectionInterface $class
-     * @param int $options
+     * @param int                      $options
      */
     public function __construct(ClassReflectionInterface $class, $options = 0)
     {
-    	$this->class   = $class;
-    	$this->options = $options;
+        $this->class   = $class;
+        $this->options = $options;
 
-    	$this->rewind();
+        $this->rewind();
     }
 
     /**
@@ -42,7 +42,7 @@ class ClassParentIterator implements \Iterator
      */
     public function current()
     {
-    	return $this->current;
+        return $this->current;
     }
 
     /**
@@ -50,9 +50,9 @@ class ClassParentIterator implements \Iterator
      */
     public function next()
     {
-    	if ($this->current) {
-    		$this->current = $this->current->getParent();
-    	}
+        if ($this->current) {
+            $this->current = $this->current->getParent();
+        }
     }
 
     /**
@@ -60,7 +60,7 @@ class ClassParentIterator implements \Iterator
      */
     public function key()
     {
-    	return $this->current->getFullName();
+        return $this->current->getFullName();
     }
 
     /**
@@ -68,7 +68,7 @@ class ClassParentIterator implements \Iterator
      */
     public function valid()
     {
-    	return $this->current !== null;
+        return $this->current !== null;
     }
 
     /**

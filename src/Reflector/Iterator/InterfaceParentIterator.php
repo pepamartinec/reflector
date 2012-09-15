@@ -11,7 +11,7 @@ class InterfaceParentIterator extends \ArrayIterator implements \RecursiveIterat
      * Constructor
      *
      * @param InterfaceReflectionInterface $interface
-     * @param int $options
+     * @param int                          $options
      */
     public function __construct(InterfaceReflectionInterface $interface, $options = 0)
     {

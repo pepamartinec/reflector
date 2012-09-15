@@ -5,5 +5,5 @@ use Reflector\ReflectorException;
 
 class InvalidSyntaxException extends ReflectorException
 {
-	
+
 }

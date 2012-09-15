@@ -10,6 +10,8 @@ use Reflector\Reflection\Runtime\RuntimeClassReflection;
 class ClassInterfaceIteratorTest extends \PHPUnit_Framework_TestCase
 {
     const SOURCE_CODE = <<<EOC
+namespace x;
+
 interface Foo {}
 interface Bar {}
 interface Other {}

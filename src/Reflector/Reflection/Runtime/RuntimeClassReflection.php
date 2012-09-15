@@ -217,4 +217,3 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
         return $this->reflection->isFinal();
     }
 }
-

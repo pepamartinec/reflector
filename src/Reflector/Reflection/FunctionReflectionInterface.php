@@ -3,31 +3,31 @@ namespace Reflector\Reflection;
 
 interface FunctionReflectionInterface extends ReflectionInterface
 {
-	/**
-	 * Returns definition file name
-	 *
-	 * @return string|null
-	 */
-	public function getDefinitionFile();
+    /**
+     * Returns definition file name
+     *
+     * @return string|null
+     */
+    public function getDefinitionFile();
 
-	/**
-	 * Returns line number within definition file
-	 *
-	 * @return int|null
-	 */
-	public function getStartLine();
+    /**
+     * Returns line number within definition file
+     *
+     * @return int|null
+     */
+    public function getStartLine();
 
-	/**
-	 * Returns containing namespace
-	 *
-	 * @return iReflectionNamespace
-	 */
-	public function getNamespace();
+    /**
+     * Returns containing namespace
+     *
+     * @return iReflectionNamespace
+     */
+    public function getNamespace();
 
-	/**
-	 * Returns name
-	 *
-	 * @return string
-	 */
-	public function getName();
+    /**
+     * Returns name
+     *
+     * @return string
+     */
+    public function getName();
 }
