@@ -1,8 +1,6 @@
 <?php
 namespace Reflector\Reflection;
 
-use Reflector\ReflectionInterface;
-
 interface InterfaceReflectionInterface extends ReflectionInterface
 {
 	/**
@@ -20,32 +18,39 @@ interface InterfaceReflectionInterface extends ReflectionInterface
 	public function getStartLine();
 
 	/**
-	 * Returns containing namespace
+	 * Returns the parent namespace
 	 *
-	 * @return iReflectionNamespace
+	 * @return NamespaceReflectionInterface
 	 */
 	public function getNamespace();
 
 	/**
-	 * Returns interface name
+	 * Returns the interface name
 	 *
 	 * @return string
 	 */
 	public function getName();
 
 	/**
-	 * Returns fully qualified interface name
+	 * Returns the fully qualified interface name
 	 *
 	 * @return string
 	 */
 	public function getFullName();
 
 	/**
-	 * Returns direct parent interface
+	 * Returns list of the interface parents
 	 *
-	 * @return iReflectionInterface|null
+	 * @return array
 	 */
-	public function getParent();
+	public function getParents();
+
+	/**
+	 * Returns the parents list iterator
+	 *
+	 * @return \Iterator
+	 */
+	public function getParentIterator();
 
 	/**
 	 * Checks, wheter interface has given parent
@@ -53,12 +58,5 @@ interface InterfaceReflectionInterface extends ReflectionInterface
 	 * @param  string $parentName
 	 * @return bool
 	 */
-	public function hasParent( $parentName );
-
-	/**
-	 * Returns interfaces (this and every parent)
-	 *
-	 * @return array
-	 */
-	public function getInterfaces();
+	public function hasParent($parentName);
 }

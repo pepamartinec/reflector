@@ -1,8 +1,6 @@
 <?php
 namespace Reflector\Reflection;
 
-use Reflector\ReflectionInterface;
-
 interface NamespaceReflectionInterface extends ReflectionInterface
 {
 	/**
