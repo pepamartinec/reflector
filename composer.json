@@ -2,6 +2,7 @@
     "name"        : "joker806/reflector",
     "type"        : "library",
     "description" : "A static code reflection tool for PHP",
+    "keywords"    : [ "reflection", "code analysis" ],
     "license"     : "GPL-3.0",
     "authors"     : [{
     	"name" : "Josef Martinec", "email" : "joker806@gmail.com"
@@ -9,6 +10,10 @@
     
     "require" : {
         "php" : ">=5.3"
+    },
+    
+    "require-dev" : {
+        "EHER/PHPUnit" : "1.6"
     },
     
     "autoload" : {
