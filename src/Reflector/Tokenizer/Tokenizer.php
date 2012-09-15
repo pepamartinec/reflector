@@ -243,17 +243,22 @@ class Tokenizer
      * @param  string $name fully classified name
      * @return array  array( $namespace, $item )
      */
-    public static function explodeName( $name )
+    public static function explodeName($name)
     {
-        // legacy code workaround
-        // (code with no namespace)
-        if ($name[0] !== '\\') {
-            $name = '\\'.$name;
+        $dividerPosition = strrpos($name, '\\');
+
+        if ($dividerPosition === false) {
+            return array('', $name);
+
+        } else {
+            $namespace = substr($name, 0, $dividerPosition);
+            $item      = substr($name, $dividerPosition + 1);
+
+            while ($namespace[0] === '\\') {
+                $namespace = substr($namespace, 1);
+            }
+
+            return array($namespace, $item);
         }
-
-        $item      = substr( strrchr( $name, '\\' ), 1 ) ?: null;
-        $namespace = substr( $name, 0, -( strlen( $item ) + 1 ) ) ?: '\\';
-
-        return array( $namespace, $item );
     }
 }
