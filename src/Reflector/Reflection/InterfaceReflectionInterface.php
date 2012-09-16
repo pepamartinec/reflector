@@ -8,7 +8,7 @@ interface InterfaceReflectionInterface extends ReflectionInterface
      *
      * @return string|null
      */
-    public function getDefinitionFile();
+    public function getFileName();
 
     /**
      * Returns line number within viewConfiguration file

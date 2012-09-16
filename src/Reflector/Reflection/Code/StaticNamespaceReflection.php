@@ -289,7 +289,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
                             $previous instanceof RuntimeReflectionInterface && $item instanceof StaticReflectionInterface;
 
             if ($isReplacable === false) {
-                throw new RedeclarationException("Namespace {$this->getName()} already contains {$item->getName()}, previously declarladerd at {$previous->getDefinitionFile()}:{$previous->getStartLine()}");
+                throw new RedeclarationException("Namespace {$this->getName()} already contains {$item->getName()}, previously declarladerd at {$previous->getFileName()}:{$previous->getStartLine()}");
             }
         }
 

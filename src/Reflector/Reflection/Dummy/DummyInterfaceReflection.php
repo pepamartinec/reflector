@@ -57,7 +57,7 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
      *
      * @return string|null
      */
-    public function getDefinitionFile()
+    public function getFileName()
     {
         return null;
     }

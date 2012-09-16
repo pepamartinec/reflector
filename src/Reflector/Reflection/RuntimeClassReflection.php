@@ -76,7 +76,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
      *
      * @return string|null
      */
-    public function getDefinitionFile()
+    public function getFileName()
     {
         return $this->reflection->getFileName();
     }

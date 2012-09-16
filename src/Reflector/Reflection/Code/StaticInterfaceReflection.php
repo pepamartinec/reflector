@@ -103,9 +103,9 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getDefinitionFile()
+     * @see Reflector\Reflection.InterfaceReflectionInterface::getFileName()
      */
-    public function getDefinitionFile()
+    public function getFileName()
     {
         return $this->file;
     }

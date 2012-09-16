@@ -146,7 +146,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
      *
      * @return string|null
      */
-    public function getDefinitionFile()
+    public function getFileName()
     {
         return $this->file;
     }

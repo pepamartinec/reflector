@@ -79,7 +79,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
      *
      * @return string|null
      */
-    public function getDefinitionFile()
+    public function getFileName()
     {
         return $this->reflection->getFileName();
     }

@@ -8,7 +8,7 @@ interface FunctionReflectionInterface extends ReflectionInterface
      *
      * @return string|null
      */
-    public function getDefinitionFile();
+    public function getFileName();
 
     /**
      * Returns line number within definition file

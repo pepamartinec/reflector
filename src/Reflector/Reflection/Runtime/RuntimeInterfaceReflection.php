@@ -65,9 +65,9 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getDefinitionFile()
+     * @see Reflector\Reflection.InterfaceReflectionInterface::getFileName()
      */
-    public function getDefinitionFile()
+    public function getFileName()
     {
         return $this->reflection->getFileName();
     }
