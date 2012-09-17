@@ -36,7 +36,7 @@ interface InterfaceReflectionInterface extends ReflectionInterface
      *
      * @return string
      */
-    public function getFullName();
+    public function getName();
 
     /**
      * Returns list of the interface parents

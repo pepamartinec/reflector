@@ -60,7 +60,7 @@ class ClassParentIterator implements \Iterator
      */
     public function key()
     {
-        return $this->current->getFullName();
+        return $this->current->getName();
     }
 
     /**

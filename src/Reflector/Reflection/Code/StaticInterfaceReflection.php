@@ -135,9 +135,9 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getFullName()
+     * @see Reflector\Reflection.InterfaceReflectionInterface::getName()
      */
-    public function getFullName()
+    public function getName()
     {
         return $this->namespace->getName() .'\\'. $this->name;
     }
@@ -168,7 +168,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
         $parentIt = $this->getParentIterator();
 
         while ($parentIt->valid()) {
-            if ($parentIt->current()->getFullName() === $parentName) {
+            if ($parentIt->current()->getName() === $parentName) {
                 return true;
             }
         }

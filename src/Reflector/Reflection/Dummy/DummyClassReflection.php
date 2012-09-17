@@ -92,7 +92,7 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
      *
      * @return string
      */
-    public function getFullName()
+    public function getName()
     {
         return $this->namespace->getName() .'\\'. $this->name;
     }

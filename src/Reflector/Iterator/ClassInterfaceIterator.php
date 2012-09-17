@@ -86,7 +86,7 @@ class ClassInterfaceIterator extends \AppendIterator
      */
     private function isVisited()
     {
-        $name = $this->current()->getFullName();
+        $name = $this->current()->getName();
 
         return isset($this->visited[$name]);
     }
@@ -100,7 +100,7 @@ class ClassInterfaceIterator extends \AppendIterator
             return;
         }
 
-        $name = $this->current()->getFullName();
+        $name = $this->current()->getName();
         $this->visited[$name] = true;
     }
 }

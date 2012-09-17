@@ -36,7 +36,7 @@ interface ClassReflectionInterface extends ReflectionInterface
      *
      * @return string
      */
-    public function getFullName();
+    public function getName();
 
     /**
      * Returns the direct parent class

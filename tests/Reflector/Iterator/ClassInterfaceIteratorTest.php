@@ -86,14 +86,14 @@ EOC;
             echo "\n\truntime: ";
             $ri = $runtimeIterators[$className]; /* @var $ri Reflector\Iterator\ClassInterfaceIterator */
             while ($ri->valid()) {
-                echo $ri->current()->getFullName().', ';
+                echo $ri->current()->getName().', ';
                 $ri->next();
             }
 
             echo "\n\tstatic: ";
             $si = $staticIterators[$className]; /* @var $si Reflector\Iterator\ClassInterfaceIterator */
             while ($si->valid()) {
-            	echo $si->current()->getFullName().', ';
+            	echo $si->current()->getName().', ';
             	$si->next();
             }
 

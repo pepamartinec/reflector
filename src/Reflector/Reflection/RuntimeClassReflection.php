@@ -116,7 +116,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
      *
      * @return string
      */
-    public function getFullName()
+    public function getName()
     {
         return $this->namespace->getName() .'\\'. $this->getName();
     }
