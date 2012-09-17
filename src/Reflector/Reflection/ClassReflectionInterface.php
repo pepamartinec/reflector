@@ -29,7 +29,7 @@ interface ClassReflectionInterface extends ReflectionInterface
      *
      * @return string
      */
-    public function getName();
+    public function getShortName();
 
     /**
      * Returns the fully qualified class name

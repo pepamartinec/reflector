@@ -128,7 +128,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
      *
      * @return string
      */
-    public function getName()
+    public function getShortName()
     {
         return $this->name;
     }

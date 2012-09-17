@@ -109,7 +109,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
      *
      * @return string
      */
-    public function getName()
+    public function getShortName()
     {
         return $this->reflection->getShortName();
     }
@@ -121,7 +121,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
      */
     public function getFullName()
     {
-        return $this->namespace->getName() .'\\'. $this->getName();
+        return $this->namespace->getName() .'\\'. $this->getShortName();
     }
 
     /**
@@ -144,7 +144,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     {
         $iface = $this;
         while ( ( $parent = $iface->getParent() ) !== null ) {
-            if( $parent->getName() === $parentName )
+            if( $parent->getShortName() === $parentName )
 
                 return true;
 

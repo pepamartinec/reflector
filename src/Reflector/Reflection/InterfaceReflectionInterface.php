@@ -29,7 +29,7 @@ interface InterfaceReflectionInterface extends ReflectionInterface
      *
      * @return string
      */
-    public function getName();
+    public function getShortName();
 
     /**
      * Returns the fully qualified interface name

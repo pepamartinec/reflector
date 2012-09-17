@@ -282,18 +282,18 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
             throw new InvalidItemException('Item comes from other namespace');
         }
 
-        if (isset($this->items[$item->getName()])) {
-            $previous = $this->items[$item->getName()];
+        if (isset($this->items[$item->getShortName()])) {
+            $previous = $this->items[$item->getShortName()];
 
             $isReplacable = $previous instanceof DummyReflectionInterface && ($item instanceof RuntimeReflectionInterface || $item instanceof StaticReflectionInterface) ||
                             $previous instanceof RuntimeReflectionInterface && $item instanceof StaticReflectionInterface;
 
             if ($isReplacable === false) {
-                throw new RedeclarationException("Namespace {$this->getName()} already contains {$item->getName()}, previously declarladerd at {$previous->getFileName()}:{$previous->getStartLine()}");
+                throw new RedeclarationException("Namespace {$this->getShortName()} already contains {$item->getName()}, previously declarladerd at {$previous->getFileName()}:{$previous->getStartLine()}");
             }
         }
 
-        $this->items[$item->getName()] = $item;
+        $this->items[$item->getShortName()] = $item;
     }
 
     /**
