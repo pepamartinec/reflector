@@ -98,7 +98,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     /**
      * Returns containing namespace
      *
-     * @return iReflectionNamespace
+     * @return NamespaceReflectionInterface
      */
     public function getNamespace()
     {
@@ -110,7 +110,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
      *
      * @return string
      */
-    public function getName()
+    public function getShortName()
     {
         return $this->reflection->getShortName();
     }
@@ -128,7 +128,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     /**
      * Returns direct parent class
      *
-     * @return iReflectionClass|null
+     * @return ClassReflectionInterface|null
      */
     public function getParent()
     {

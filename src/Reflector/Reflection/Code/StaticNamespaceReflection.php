@@ -233,7 +233,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     /**
      * Returns direct parent namespace
      *
-     * @return iReflectionClass
+     * @return ClassReflectionInterface
      */
     public function getParent()
     {

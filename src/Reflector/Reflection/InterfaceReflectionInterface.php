@@ -1,24 +1,31 @@
 <?php
 namespace Reflector\Reflection;
 
+/**
+ * Interface reflection interface
+ *
+ * Describes the interface shared by the interface reflections
+ *
+ * @author Josef Martinec <joker806@gmail.com>
+ */
 interface InterfaceReflectionInterface extends ReflectionInterface
 {
     /**
-     * Returns viewConfiguration file name
+     * Returns the definition file name
      *
      * @return string|null
      */
     public function getFileName();
 
     /**
-     * Returns line number within viewConfiguration file
+     * Returns the line number within the definition file
      *
      * @return int|null
      */
     public function getStartLine();
 
     /**
-     * Returns the parent namespace
+     * Returns the containing namespace
      *
      * @return NamespaceReflectionInterface
      */
@@ -32,28 +39,28 @@ interface InterfaceReflectionInterface extends ReflectionInterface
     public function getShortName();
 
     /**
-     * Returns the fully qualified interface name
+     * Returns the fully qualified inteface name
      *
      * @return string
      */
     public function getName();
 
     /**
-     * Returns list of the interface parents
+     * Returns the direct parent interfaces
      *
      * @return array
      */
     public function getParents();
 
     /**
-     * Returns the parents list iterator
+     * Returns the interface parent iterator
      *
      * @return \Iterator
      */
     public function getParentIterator();
 
     /**
-     * Checks, wheter interface has given parent
+     * Checks if the interface has given parent
      *
      * @param  string $parentName
      * @return bool

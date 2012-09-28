@@ -1,10 +1,17 @@
 <?php
 namespace Reflector\Reflection;
 
+/**
+ * Namespace reflection interface
+ *
+ * Describes the interface shared by the namespace reflections
+ *
+ * @author Josef Martinec <joker806@gmail.com>
+ */
 interface NamespaceReflectionInterface extends ReflectionInterface
 {
     /**
-     * Returns namespace name
+     * Returns the namespace name
      *
      * @return string
      */
@@ -13,61 +20,54 @@ interface NamespaceReflectionInterface extends ReflectionInterface
     /**
      * Returns direct parent namespace
      *
-     * @return iReflectionClass
+     * @return NamespaceReflectionInterface|null
      */
     public function getParent();
 
     /**
-     * Checks, wheter namespace has given parent
+     * Checks if the namespace has given parent
      *
      * @param  string $parentName
      * @return bool
      */
-    public function hasParent( $parentName );
+    public function hasParent($parentName);
 
     /**
-     * Adds new item (class, interface, funciton) reflection into namespace
+     * Adds new item into the namespace
      *
-     * @param iReflection $item
+     * @param NamespaceItem $item
      *
-     * @throws InvalidItemException
+     * @throws InvalidItemException when item cannot be added to the namespace
      */
-    public function addItem( ReflectionInterface $item );
+    public function addItem(NamespaceItem $item);
 
     /**
-     * Checks, wheter namespace contains given item (class, interface, function)
+     * Checks if the namespace contains the item
      *
      * @param  string $itemName
      * @return bool
      */
-    public function hasItem( $itemName );
+    public function hasItem($itemName);
 
     /**
-     * Returns given item (class, interface, function)
+     * Returns the item
      *
-     * @param  string                   $itemName
-     * @return ReflectionInterface|null
+     * @param  string $itemName
+     * @return NamespaceItem|null
      */
-    public function getItem( $itemName );
+    public function getItem($itemName);
 
     /**
-     * Returns namespace classes iterator
+     * Returns the namespace class iterator
      *
      * @return \Iterator
      */
     public function getClassIterator();
 
     /**
-     * Returns namespace interfaces iterator
+     * Returns the namespace interface iterator
      *
      * @return \Iterator
      */
     public function getInterfaceIterator();
-
-    /**
-     * Returns namespace global functions iterator
-     *
-     * @return \Iterator
-     */
-    public function getFunctionIterator();
 }

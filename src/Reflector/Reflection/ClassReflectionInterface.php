@@ -1,7 +1,14 @@
 <?php
 namespace Reflector\Reflection;
 
-interface ClassReflectionInterface extends ReflectionInterface
+/**
+ * Class reflection interface
+ *
+ * Describes the interface shared by the class reflections
+ *
+ * @author Josef Martinec <joker806@gmail.com>
+ */
+interface ClassReflectionInterface extends ReflectionInterface, NamespaceItem
 {
     /**
      * Returns the definition file name
@@ -20,7 +27,7 @@ interface ClassReflectionInterface extends ReflectionInterface
     /**
      * Returns the containing namespace
      *
-     * @return iReflectionNamespace
+     * @return NamespaceReflectionInterface
      */
     public function getNamespace();
 
@@ -53,7 +60,7 @@ interface ClassReflectionInterface extends ReflectionInterface
     public function getParentIterator();
 
     /**
-     * Checks, wheter the class has given parent
+     * Checks if the class has given parent
      *
      * @param  string $parentName
      * @return bool
@@ -75,7 +82,7 @@ interface ClassReflectionInterface extends ReflectionInterface
     public function getInterfaceIterator();
 
     /**
-     * Checks, whether class implements given parent
+     * Checks if the class implements given interface
      *
      * @param  string $interfaceName
      * @return bool
@@ -83,14 +90,14 @@ interface ClassReflectionInterface extends ReflectionInterface
     public function implementsInterface($interfaceName);
 
     /**
-     * Tells whether class is abstract
+     * Checks if the class is abstract
      *
      * @return bool
      */
     public function isAbstract();
 
     /**
-     * Tells whether class is final
+     * Checks if the class is final
      *
      * @return bool
      */

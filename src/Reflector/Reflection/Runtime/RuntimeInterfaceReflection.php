@@ -91,7 +91,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     /**
      * @see Reflector\Reflection.InterfaceReflectionInterface::getName()
      */
-    public function getName()
+    public function getShortName()
     {
         return $this->reflection->getShortName();
     }
