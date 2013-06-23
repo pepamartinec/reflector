@@ -7,15 +7,16 @@
     "authors"     : [{
     	"name" : "Josef Martinec", "email" : "joker806@gmail.com"
     }],
-    
+
     "require" : {
-        "php" : ">=5.3"
+        "php" : ">=5.3",
+        "nikic/php-parser" : "0.9"
     },
-    
+
     "require-dev" : {
-        "EHER/PHPUnit" : "1.6"
+        "phpunit/phpunit" : "3.7.x"
     },
-    
+
     "autoload" : {
         "psr-0" : {
             "Reflector" : "src/"
