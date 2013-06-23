@@ -44,14 +44,4 @@ interface NamespaceItemInterface
      * @return int|null
      */
     public function getStartLine();
-
-    /**
-     * Checks if the item is replaceable by other item within the namespace.
-     *
-     * DummyReflection is replaceable by the RuntimeReflection is replaceable by the StaticReflection.
-     *
-     * @param NamespaceItemInterface $otherItem
-     * @return mixed
-     */
-    public function isReplaceableBy(NamespaceItemInterface $otherItem);
 }
