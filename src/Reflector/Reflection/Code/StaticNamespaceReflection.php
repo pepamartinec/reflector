@@ -2,8 +2,8 @@
 namespace Reflector\Reflection\Code;
 
 use Reflector\Iterator\CallbackFilterIterator;
-use Reflector\Reflection\RuntimeReflectionInterface;
-use Reflector\Reflection\DummyReflectionInterface;
+use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
+use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 use Reflector\Reflection\ClassReflectionInterface;
 use Reflector\RedeclarationException;
@@ -13,7 +13,7 @@ use Reflector\AliasResolver;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\Tokenizer\UnexpectedTokenException;
 use Reflector\ReflectionFactory;
-use Reflector\Reflection\StaticReflectionInterface;
+use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\NamespaceReflectionInterface;
 
 class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticReflectionInterface

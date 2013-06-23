@@ -1,7 +1,7 @@
 <?php
 namespace Reflector\Reflection\Dummy;
 
-use Reflector\Reflection\DummyReflectionInterface;
+use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\ClassReflectionInterface;
 use Reflector\Reflection\NamespaceReflectionInterface;
 

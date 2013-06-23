@@ -1,5 +1,7 @@
 <?php
-namespace Reflector\Reflection;
+namespace Reflector\Reflection\Code;
+
+use Reflector\Reflection\ReflectionInterface;
 
 /**
  * Static reflection interface

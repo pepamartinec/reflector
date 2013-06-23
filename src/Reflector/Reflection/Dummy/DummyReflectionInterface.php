@@ -1,5 +1,7 @@
 <?php
-namespace Reflector\Reflection;
+namespace Reflector\Reflection\Dummy;
+
+use Reflector\Reflection\ReflectionInterface;
 
 /**
  * Dummy reflection interface

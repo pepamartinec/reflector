@@ -4,7 +4,7 @@ namespace Reflector\Reflection\Code;
 use Reflector\Iterator\InterfaceParentIterator;
 
 use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Reflection\StaticReflectionInterface;
+use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\AliasResolver;

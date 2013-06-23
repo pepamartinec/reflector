@@ -8,7 +8,7 @@ namespace Reflector\Reflection;
  *
  * @author Josef Martinec <joker806@gmail.com>
  */
-interface ClassReflectionInterface extends ReflectionInterface, NamespaceItem
+interface ClassReflectionInterface extends ReflectionInterface, NamespaceItemInterface
 {
     /**
      * Returns the definition file name

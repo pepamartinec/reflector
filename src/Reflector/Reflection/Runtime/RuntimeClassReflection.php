@@ -5,7 +5,7 @@ use Reflector\Tokenizer\Tokenizer;
 use Reflector\Iterator\ClassParentIterator;
 use Reflector\Iterator\ClassInterfaceIterator;
 use Reflector\ReflectionFactory;
-use Reflector\Reflection\RuntimeReflectionInterface;
+use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
 use Reflector\Reflection\ClassReflectionInterface;
 
 class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflectionInterface

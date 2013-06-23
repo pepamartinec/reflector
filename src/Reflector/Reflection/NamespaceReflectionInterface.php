@@ -35,11 +35,11 @@ interface NamespaceReflectionInterface extends ReflectionInterface
     /**
      * Adds new item into the namespace
      *
-     * @param NamespaceItem $item
+     * @param NamespaceItemInterface $item
      *
      * @throws InvalidItemException when item cannot be added to the namespace
      */
-    public function addItem(NamespaceItem $item);
+    public function addItem(NamespaceItemInterface $item);
 
     /**
      * Checks if the namespace contains the item
@@ -53,7 +53,7 @@ interface NamespaceReflectionInterface extends ReflectionInterface
      * Returns the item
      *
      * @param  string $itemName
-     * @return NamespaceItem|null
+     * @return NamespaceItemInterface|null
      */
     public function getItem($itemName);
 

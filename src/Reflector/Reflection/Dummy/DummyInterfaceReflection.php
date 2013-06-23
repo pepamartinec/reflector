@@ -2,7 +2,7 @@
 namespace Reflector\Reflection\Dummy;
 
 use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Reflection\DummyReflectionInterface;
+use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 
 class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyReflectionInterface

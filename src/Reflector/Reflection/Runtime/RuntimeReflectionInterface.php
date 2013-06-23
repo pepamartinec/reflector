@@ -1,5 +1,7 @@
 <?php
-namespace Reflector\Reflection;
+namespace Reflector\Reflection\Runtime;
+
+use Reflector\Reflection\ReflectionInterface;
 
 /**
  * Runtime reflection interface

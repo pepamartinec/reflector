@@ -6,7 +6,7 @@ use Reflector\Reflection\Runtime\RuntimeClassReflection;
 use Reflector\Reflection\Dummy\DummyInterfaceReflection;
 use Reflector\Reflection\Runtime\RuntimeInterfaceReflection;
 use Reflector\Reflection\ClassReflectionInterface;
-use Reflector\Reflection\DummyReflectionInterface;
+use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 use Reflector\Tokenizer\UnexpectedTokenException;
 use Reflector\Reflection\Code\StaticNamespaceReflection;
