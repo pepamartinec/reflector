@@ -8,7 +8,7 @@ namespace Reflector\Reflection;
  *
  * @author Josef Martinec
  */
-interface ReflectionInterface extends \Reflector
+interface ReflectionInterface
 {
 
 }

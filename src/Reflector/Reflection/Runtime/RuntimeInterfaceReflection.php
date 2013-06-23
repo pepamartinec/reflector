@@ -44,27 +44,6 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * Exports a class
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export($argument, $return = false)
-    {
-        return $this->reflection->export($argument, $return);
-    }
-
-    /**
-     * @see Reflector::__toString()
-     */
-    public function __toString()
-    {
-        return $this->reflection->__toString();
-    }
-
-    /**
      * @see Reflector\Reflection.InterfaceReflectionInterface::getFileName()
      */
     public function getFileName()

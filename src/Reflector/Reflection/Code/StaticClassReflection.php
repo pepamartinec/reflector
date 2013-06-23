@@ -139,29 +139,6 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Exports a class
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export($argument, $return = false)
-    {
-
-    }
-
-    /**
-     * Returns the string representation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
      * Returns definition file name
      *
      * @return string|null

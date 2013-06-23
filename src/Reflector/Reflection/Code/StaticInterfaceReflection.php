@@ -6,8 +6,6 @@ use Reflector\Iterator\InterfaceParentIterator;
 use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Reflection\StaticReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
-use Reflector\UnexpectedTokenException;
-use Reflector\ReflectionFactory;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\AliasResolver;
 
@@ -42,11 +40,10 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
      * Constructs new interface reflection
      *
      * @param NamespaceReflectionInterface $namespace
-     * @param ReflectionFactory            $f
      * @param Tokenizer                    $t
      * @param AliasResolver                $r
      *
-     * @throws UnexpectedTokenException
+     * @internal param \Reflector\ReflectionFactory $f
      */
     public function __construct(NamespaceReflectionInterface $namespace, Tokenizer $t, AliasResolver $r)
     {
@@ -79,35 +76,6 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
 
         // parse body
         $t->parseBracketsBlock();
-    }
-
-    /**
-     * Exports an interface
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export($argument, $return = false)
-    {
-
-    }
-
-    /**
-     * @see Reflector::__toString()
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getFileName()
-     */
-    public function getFileName()
-    {
-        return $this->file;
     }
 
     /**

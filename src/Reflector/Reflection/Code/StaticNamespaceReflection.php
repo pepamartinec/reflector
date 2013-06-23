@@ -4,7 +4,6 @@ namespace Reflector\Reflection\Code;
 use Reflector\Iterator\CallbackFilterIterator;
 use Reflector\Reflection\RuntimeReflectionInterface;
 use Reflector\Reflection\DummyReflectionInterface;
-use Reflector\Reflection\FunctionReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 use Reflector\Reflection\ClassReflectionInterface;
 use Reflector\RedeclarationException;
@@ -42,7 +41,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     /**
      * Constructs new namespace reflection
      *
-     * @param string            $fullName
+     * @param string            $name
      * @param ReflectionFactory $f
      *
      * @throws UnexpectedTokenException

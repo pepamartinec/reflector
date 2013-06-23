@@ -25,29 +25,6 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
     }
 
     /**
-     * Exports a class
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export( $argument, $return = false )
-    {
-
-    }
-
-    /**
-     * Returns the string representation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
      * Returns definition file name
      *
      * @return string|null
@@ -70,7 +47,7 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
     /**
      * Returns containing namespace
      *
-     * @return iReflectionNamespace
+     * @return NamespaceReflectionInterface
      */
     public function getNamespace()
     {
@@ -100,7 +77,7 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
     /**
      * Returns direct parent class
      *
-     * @return iReflectionClass|null
+     * @return ClassReflectionInterface|null
      */
     public function getParent()
     {
@@ -108,7 +85,7 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
     }
 
     /**
-     * Checks, wheter class has given parent
+     * Checks, whether class has given parent
      *
      * @param  string $parentName
      * @return bool

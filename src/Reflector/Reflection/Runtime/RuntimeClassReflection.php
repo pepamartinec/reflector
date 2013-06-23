@@ -53,29 +53,6 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Exports a class
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export($argument, $return = false)
-    {
-        return $this->reflection->export($argument, $return);
-    }
-
-    /**
-     * Returns the string representation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->reflection->__toString();
-    }
-
-    /**
      * Returns definition file name
      *
      * @return string|null
