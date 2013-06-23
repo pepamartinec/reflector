@@ -1,21 +1,20 @@
 <?php
 namespace Reflector\Reflection\Code;
 
+use Reflector\AliasResolver;
+use Reflector\InvalidItemException;
 use Reflector\Iterator\CallbackFilterIterator;
-use Reflector\Reflection\NamespaceItemInterface;
-use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
+use Reflector\RedeclarationException;
+use Reflector\Reflection\ClassReflectionInterface;
+use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
-use Reflector\Reflection\ClassReflectionInterface;
-use Reflector\RedeclarationException;
-use Reflector\InvalidItemException;
-use Reflector\Reflection\ReflectionInterface;
-use Reflector\AliasResolver;
+use Reflector\Reflection\NamespaceItemInterface;
+use Reflector\Reflection\NamespaceReflectionInterface;
+use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
+use Reflector\ReflectionFactory;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\Tokenizer\UnexpectedTokenException;
-use Reflector\ReflectionFactory;
-use Reflector\Reflection\Code\StaticReflectionInterface;
-use Reflector\Reflection\NamespaceReflectionInterface;
 
 class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticReflectionInterface
 {
@@ -62,7 +61,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
             $this->parent = $f->getNamespace($parentName);
         }
 
-        $this->items  = array();
+        $this->items = array();
     }
 
     /**
@@ -86,7 +85,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
 
             $token = $t->nextToken();
 
-        // named namespace
+            // named namespace
         } else {
             $token = $t->parseName($name);
 
@@ -94,7 +93,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
             if ($t->checkToken('{')) {
                 $isBracketed = true;
 
-            // simple namespace
+                // simple namespace
             } elseif ($t->checkToken(';')) {
                 $isBracketed = false;
 
@@ -133,11 +132,11 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
                         throw new UnexpectedTokenException($token);
                     }
 
-                // nested brackets block
+                    // nested brackets block
                 } elseif ($token === '{') {
                     $token = $t->parseBracketsBlock($t);
 
-                // who knows??
+                    // who knows??
                 } else {
                     $token = $t->nextToken();
                 }
@@ -162,7 +161,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
                 // interface
                 case T_INTERFACE:
                     $interface = new StaticInterfaceReflection($this, $t, $r);
-                    $token = $t->getToken();
+                    $token     = $t->getToken();
 
                     $this->addItem($interface);
                     break;
@@ -181,7 +180,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
                     throw new UnexpectedTokenException($token);
             }
 
-        // while not end of token stream
+            // while not end of token stream
         } while ($token !== null);
 
         if ($isBracketed) {
@@ -192,19 +191,15 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Returns namespace name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return ($this->parent ?  $this->parent->getName() .'\\' : '') . $this->name;
+        return ($this->parent ? $this->parent->getName() . '\\' : '') . $this->name;
     }
 
     /**
-     * Returns the namespace name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getShortName()
     {
@@ -213,9 +208,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
 
 
     /**
-     * Returns direct parent namespace
-     *
-     * @return ClassReflectionInterface
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -223,10 +216,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Checks, whether namespace has given parent
-     *
-     * @param  string $parentName
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasParent($parentName)
     {
@@ -243,12 +233,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Adds new item (class, interface, function) reflection into namespace
-     *
-     * @param NamespaceItemInterface $item
-     *
-     * @throws InvalidItemException
-     * @throws RedeclarationException
+     * {@inheritdoc}
      */
     public function addItem(NamespaceItemInterface $item)
     {
@@ -264,7 +249,8 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
             $isReplaceable = $isReplaceable || ($previous instanceof RuntimeReflectionInterface && $item instanceof StaticReflectionInterface);
 
             if ($isReplaceable) {
-                throw new RedeclarationException("Namespace {$this->getShortName()} already contains {$item->getName()}, previously declared at {$previous->getFileName()}:{$previous->getStartLine()}");
+                throw new RedeclarationException("Namespace {$this->getShortName()} already contains {$item->getName(
+                )}, previously declared at {$previous->getFileName()}:{$previous->getStartLine()}");
             }
         }
 
@@ -272,10 +258,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Checks, whether namespace contains given item (class, interface, function)
-     *
-     * @param  string $itemName
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasItem($itemName)
     {
@@ -283,10 +266,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Returns given item (class, interface, function)
-     *
-     * @param  string                   $itemName
-     * @return ReflectionInterface|null
+     * {@inheritdoc}
      */
     public function getItem($itemName)
     {
@@ -298,14 +278,12 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Returns namespace classes iterator
-     *
-     * @return \Iterator
+     * {@inheritdoc}
      */
     public function getClassIterator()
     {
         $iterator = new \ArrayIterator($this->items);
-        $filter   = function($current) {
+        $filter   = function ($current) {
             return $current instanceof ClassReflectionInterface;
         };
 
@@ -313,14 +291,12 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Returns namespace interfaces iterator
-     *
-     * @return \Iterator
+     * {@inheritdoc}
      */
     public function getInterfaceIterator()
     {
         $iterator = new \ArrayIterator($this->items);
-        $filter   = function($current) {
+        $filter   = function ($current) {
             return $current instanceof InterfaceReflectionInterface;
         };
 

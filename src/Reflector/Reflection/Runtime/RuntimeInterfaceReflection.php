@@ -1,7 +1,7 @@
 <?php
 namespace Reflector\Reflection\Runtime;
-use Reflector\Iterator\InterfaceParentIterator;
 
+use Reflector\Iterator\InterfaceParentIterator;
 use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\ReflectionFactory;
@@ -45,7 +45,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getFileName()
+     * {@inheritdoc}
      */
     public function getFileName()
     {
@@ -53,7 +53,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getStartLine()
+     * {@inheritdoc}
      */
     public function getStartLine()
     {
@@ -61,7 +61,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getNamespace()
+     * {@inheritdoc}
      */
     public function getNamespace()
     {
@@ -69,7 +69,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getName()
+     * {@inheritdoc}
      */
     public function getShortName()
     {
@@ -77,7 +77,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getName()
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -85,15 +85,15 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getParents()
+     * {@inheritdoc}
      */
     public function getParents()
     {
-       return $this->parents;
+        return $this->parents;
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getParentIterator()
+     * {@inheritdoc}
      */
     public function getParentIterator()
     {
@@ -103,7 +103,7 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::hasParent()
+     * {@inheritdoc}
      */
     public function hasParent($parentName)
     {

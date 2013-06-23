@@ -1,9 +1,9 @@
 <?php
 namespace Reflector\Reflection\Dummy;
 
-use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
+use Reflector\Reflection\NamespaceReflectionInterface;
 
 class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyReflectionInterface
 {
@@ -23,39 +23,14 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
      * @param NamespaceReflectionInterface $namespace
      * @param string                       $name
      */
-    public function __construct( NamespaceReflectionInterface $namespace, $name )
+    public function __construct(NamespaceReflectionInterface $namespace, $name)
     {
         $this->namespace = $namespace;
         $this->name      = $name;
     }
 
     /**
-     * Exports a class
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export( $argument, $return = false )
-    {
-
-    }
-
-    /**
-     * Returns the string representation of the object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Returns definition file name
-     *
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getFileName()
     {
@@ -63,9 +38,7 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     }
 
     /**
-     * Returns line number within definition file
-     *
-     * @return int|null
+     * {@inheritdoc}
      */
     public function getStartLine()
     {
@@ -73,9 +46,7 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     }
 
     /**
-     * Returns containing namespace
-     *
-     * @return NamespaceReflectionInterface
+     * {@inheritdoc}
      */
     public function getNamespace()
     {
@@ -83,9 +54,7 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     }
 
     /**
-     * Returns interface name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getShortName()
     {
@@ -93,19 +62,17 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     }
 
     /**
-     * Returns fully qualified interface name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return $this->namespace->getName() .'\\'. $this->name;
+        return $this->namespace->getName() . '\\' . $this->name;
     }
 
     /**
      * Returns direct parent interface
      *
-     * @return iReflectionInterface|null
+     * @return InterfaceReflectionInterface|null
      */
     public function getParent()
     {
@@ -113,12 +80,9 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     }
 
     /**
-     * Checks, wheter interface has given parent
-     *
-     * @param  string $parentName
-     * @return bool
+     * {@inheritdoc}
      */
-    public function hasParent( $parentName )
+    public function hasParent($parentName)
     {
         return false;
     }
@@ -131,5 +95,25 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     public function getInterfaces()
     {
         return array();
+    }
+
+    /**
+     * Returns the direct parent interfaces
+     *
+     * @return array
+     */
+    public function getParents()
+    {
+        // TODO: Implement getParents() method.
+    }
+
+    /**
+     * Returns the interface parent iterator
+     *
+     * @return \Iterator
+     */
+    public function getParentIterator()
+    {
+        // TODO: Implement getParentIterator() method.
     }
 }

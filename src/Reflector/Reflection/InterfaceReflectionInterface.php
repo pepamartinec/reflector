@@ -11,20 +11,6 @@ namespace Reflector\Reflection;
 interface InterfaceReflectionInterface extends ReflectionInterface, NamespaceItemInterface
 {
     /**
-     * Returns the definition file name
-     *
-     * @return string|null
-     */
-    public function getFileName();
-
-    /**
-     * Returns the line number within the definition file
-     *
-     * @return int|null
-     */
-    public function getStartLine();
-
-    /**
      * Returns the direct parent interfaces
      *
      * @return array

@@ -2,12 +2,12 @@
 namespace Reflector\Reflection\Code;
 
 use Reflector\AliasResolver;
-use Reflector\Tokenizer\Tokenizer;
-use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Reflection\Code\StaticReflectionInterface;
-use Reflector\Reflection\ClassReflectionInterface;
-use Reflector\Iterator\ClassParentIterator;
 use Reflector\Iterator\ClassInterfaceIterator;
+use Reflector\Iterator\ClassParentIterator;
+use Reflector\Reflection\ClassReflectionInterface;
+use Reflector\Reflection\Code\StaticReflectionInterface;
+use Reflector\Reflection\NamespaceReflectionInterface;
+use Reflector\Tokenizer\Tokenizer;
 use Reflector\Tokenizer\UnexpectedTokenException;
 
 class StaticClassReflection implements ClassReflectionInterface, StaticReflectionInterface
@@ -100,7 +100,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
         // name
         $t->expectToken(T_STRING);
         $this->name = $token[1];
-        $token = $t->nextToken();
+        $token      = $t->nextToken();
 
         // extends, implements
         $this->interfaces = array();
@@ -140,9 +140,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Returns definition file name
-     *
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getFileName()
     {
@@ -150,9 +148,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Get the starting line number.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getStartLine()
     {
@@ -160,19 +156,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Gets end line number from a user-defined class definition.
-     *
-     * @return int
-     */
-    public function getEndLine()
-    {
-        return $this->endLine;
-    }
-
-    /**
-     * Returns containing namespace
-     *
-     * @return NamespaceReflectionInterface
+     * {@inheritdoc}
      */
     public function getNamespace()
     {
@@ -180,9 +164,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Returns name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getShortName()
     {
@@ -190,9 +172,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Returns fully qualified class name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -200,9 +180,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Returns direct parent class
-     *
-     * @return ClassReflectionInterface|null
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -210,9 +188,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Returns the class parent iterator
-     *
-     * @return ClassParentIterator
+     * {@inheritdoc}
      */
     public function getParentIterator()
     {
@@ -220,10 +196,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Checks, whether the class has given parent
-     *
-     * @param  string $parentName
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasParent($parentName)
     {
@@ -237,7 +210,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * @see ClassReflectionInterface::getInterfaces()
+     * {@inheritdoc}
      */
     public function getInterfaces()
     {
@@ -245,9 +218,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Returns class interfaces
-     *
-     * @return ClassInterfaceIterator
+     * {@inheritdoc}
      */
     public function getInterfaceIterator()
     {
@@ -255,10 +226,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Checks, whether class implements given parent
-     *
-     * @param  string $interfaceName
-     * @return bool
+     * {@inheritdoc}
      */
     public function implementsInterface($interfaceName)
     {
@@ -272,9 +240,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Tells whether class is abstract
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isAbstract()
     {
@@ -282,9 +248,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     }
 
     /**
-     * Tells whether class is final
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isFinal()
     {

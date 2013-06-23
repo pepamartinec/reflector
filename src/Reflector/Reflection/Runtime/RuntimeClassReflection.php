@@ -1,13 +1,13 @@
 <?php
 namespace Reflector\Reflection\Runtime;
 
-use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Tokenizer\Tokenizer;
-use Reflector\Iterator\ClassParentIterator;
 use Reflector\Iterator\ClassInterfaceIterator;
-use Reflector\ReflectionFactory;
-use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
+use Reflector\Iterator\ClassParentIterator;
 use Reflector\Reflection\ClassReflectionInterface;
+use Reflector\Reflection\NamespaceReflectionInterface;
+use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
+use Reflector\ReflectionFactory;
+use Reflector\Tokenizer\Tokenizer;
 
 class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflectionInterface
 {
@@ -45,18 +45,16 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
         $this->namespace = $f->getNamespace($nsName);
 
         $parentReflection = $this->reflection->getParentClass();
-        $this->parent = $parentReflection === false ? null : new RuntimeClassReflection($parentReflection, $f);
+        $this->parent     = $parentReflection === false ? null : new RuntimeClassReflection($parentReflection, $f);
 
         $this->interfaces = array();
         foreach ($this->reflection->getInterfaces() as $interfaceName => $interface) {
-            $this->interfaces['\\'.$interfaceName] = new RuntimeInterfaceReflection($interface, $f);
+            $this->interfaces['\\' . $interfaceName] = new RuntimeInterfaceReflection($interface, $f);
         }
     }
 
     /**
-     * Returns definition file name
-     *
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getFileName()
     {
@@ -64,9 +62,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Returns line number within definition file
-     *
-     * @return int|null
+     * {@inheritdoc}
      */
     public function getStartLine()
     {
@@ -74,9 +70,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Returns containing namespace
-     *
-     * @return NamespaceReflectionInterface
+     * {@inheritdoc}
      */
     public function getNamespace()
     {
@@ -84,9 +78,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Returns name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getShortName()
     {
@@ -94,19 +86,15 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Returns fully qualified class name
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return $this->namespace->getName() .'\\'. $this->getName();
+        return $this->namespace->getName() . '\\' . $this->getName();
     }
 
     /**
-     * Returns direct parent class
-     *
-     * @return ClassReflectionInterface|null
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -114,9 +102,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Returns the class parent iterator
-     *
-     * @return ClassParentIterator
+     * {@inheritdoc}
      */
     public function getParentIterator()
     {
@@ -124,10 +110,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Checks, whether the class has given parent
-     *
-     * @param  string $parentName
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasParent($parentName)
     {
@@ -141,7 +124,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * @see ClassReflectionInterface::getInterfaces()
+     * {@inheritdoc}
      */
     public function getInterfaces()
     {
@@ -149,9 +132,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Returns class interfaces
-     *
-     * @return ClassInterfaceIterator
+     * {@inheritdoc}
      */
     public function getInterfaceIterator()
     {
@@ -159,10 +140,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Checks, whether class implements given parent
-     *
-     * @param  string $interfaceName
-     * @return bool
+     * {@inheritdoc}
      */
     public function implementsInterface($interfaceName)
     {
@@ -176,9 +154,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Tells whether class is abstract
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isAbstract()
     {
@@ -186,9 +162,7 @@ class RuntimeClassReflection implements ClassReflectionInterface, RuntimeReflect
     }
 
     /**
-     * Tells whether class is final
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isFinal()
     {

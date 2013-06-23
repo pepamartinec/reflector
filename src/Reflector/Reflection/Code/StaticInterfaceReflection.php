@@ -1,13 +1,12 @@
 <?php
 namespace Reflector\Reflection\Code;
 
+use Reflector\AliasResolver;
 use Reflector\Iterator\InterfaceParentIterator;
-
-use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
+use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Tokenizer\Tokenizer;
-use Reflector\AliasResolver;
 
 class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticReflectionInterface
 {
@@ -42,8 +41,6 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
      * @param NamespaceReflectionInterface $namespace
      * @param Tokenizer                    $t
      * @param AliasResolver                $r
-     *
-     * @internal param \Reflector\ReflectionFactory $f
      */
     public function __construct(NamespaceReflectionInterface $namespace, Tokenizer $t, AliasResolver $r)
     {
@@ -58,7 +55,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
         // name
         $t->expectToken(T_STRING);
         $this->name = $token[1];
-        $token = $t->nextToken();
+        $token      = $t->nextToken();
 
         // T_EXTENDS
         $this->parents = array();
@@ -79,9 +76,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * Returns definition file name
-     *
-     * @return string|null
+     * {@inheritdoc}
      */
     public function getFileName()
     {
@@ -89,7 +84,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getStartLine()
+     * {@inheritdoc}
      */
     public function getStartLine()
     {
@@ -97,7 +92,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getNamespace()
+     * {@inheritdoc}
      */
     public function getNamespace()
     {
@@ -105,7 +100,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getShortName()
+     * {@inheritdoc}
      */
     public function getShortName()
     {
@@ -113,23 +108,23 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getName()
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return $this->namespace->getName() .'\\'. $this->name;
+        return $this->namespace->getName() . '\\' . $this->name;
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getParents()
+     * {@inheritdoc}
      */
     public function getParents()
     {
-       return $this->parents;
+        return $this->parents;
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::getParentIterator()
+     * {@inheritdoc}
      */
     public function getParentIterator()
     {
@@ -139,7 +134,7 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     }
 
     /**
-     * @see Reflector\Reflection.InterfaceReflectionInterface::hasParent()
+     * {@inheritdoc}
      */
     public function hasParent($parentName)
     {
