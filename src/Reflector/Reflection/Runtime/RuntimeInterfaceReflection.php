@@ -2,6 +2,7 @@
 namespace Reflector\Reflection\Runtime;
 use Reflector\Iterator\InterfaceParentIterator;
 
+use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\ReflectionFactory;
 use Reflector\Reflection\Runtime\RuntimeReflectionInterface;

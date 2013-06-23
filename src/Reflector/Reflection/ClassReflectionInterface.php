@@ -11,41 +11,6 @@ namespace Reflector\Reflection;
 interface ClassReflectionInterface extends ReflectionInterface, NamespaceItemInterface
 {
     /**
-     * Returns the definition file name
-     *
-     * @return string|null
-     */
-    public function getFileName();
-
-    /**
-     * Returns the line number within the definition file
-     *
-     * @return int|null
-     */
-    public function getStartLine();
-
-    /**
-     * Returns the containing namespace
-     *
-     * @return NamespaceReflectionInterface
-     */
-    public function getNamespace();
-
-    /**
-     * Returns the class name
-     *
-     * @return string
-     */
-    public function getShortName();
-
-    /**
-     * Returns the fully qualified class name
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
      * Returns the direct parent class
      *
      * @return ClassReflectionInterface|null

@@ -75,7 +75,7 @@ class DummyInterfaceReflection implements InterfaceReflectionInterface, DummyRef
     /**
      * Returns containing namespace
      *
-     * @return iReflectionNamespace
+     * @return NamespaceReflectionInterface
      */
     public function getNamespace()
     {

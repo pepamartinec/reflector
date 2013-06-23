@@ -2,6 +2,7 @@
 namespace Reflector\Reflection\Code;
 
 use Reflector\Iterator\CallbackFilterIterator;
+use Reflector\Reflection\NamespaceItemInterface;
 use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
 use Reflector\Reflection\Dummy\DummyReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
@@ -34,7 +35,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     protected $parent;
 
     /**
-     * @var array
+     * @var NamespaceItemInterface[]
      */
     protected $items;
 
@@ -57,14 +58,8 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
         } else {
             list($parentName, $localName) = Tokenizer::explodeName($name);
 
+            $this->name   = $localName;
             $this->parent = $f->getNamespace($parentName);
-
-            if ($parentName === '') {
-                $this->name = $localName;
-
-            } else {
-                $this->name = $parentName .'\\'. $localName;
-            }
         }
 
         $this->items  = array();
@@ -120,8 +115,8 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
      * @param Tokenizer     $t
      * @param AliasResolver $r
      *
+     * @return array|null
      * @throws UnexpectedTokenException
-     * @throws UnexpectedEndOfSourceException
      */
     public function parseBody($isBracketed, Tokenizer $t, AliasResolver $r)
     {
@@ -197,37 +192,25 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Exports a namespace
-     *
-     * @param mixed $argument
-     * @param bool  $return
-     *
-     * @return string|null
-     */
-    public static function export($argument, $return = false)
-    {
-
-    }
-
-    /**
-     * Returns the string representation of the ReflectionNamespace object
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
      * Returns namespace name
      *
      * @return string
      */
     public function getName()
     {
+        return ($this->parent ?  $this->parent->getName() .'\\' : '') . $this->name;
+    }
+
+    /**
+     * Returns the namespace name
+     *
+     * @return string
+     */
+    public function getShortName()
+    {
         return $this->name;
     }
+
 
     /**
      * Returns direct parent namespace
@@ -240,7 +223,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Checks, wheter namespace has given parent
+     * Checks, whether namespace has given parent
      *
      * @param  string $parentName
      * @return bool
@@ -260,23 +243,15 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Adds new item (class, interface, funciton) reflection into namespace
+     * Adds new item (class, interface, function) reflection into namespace
      *
-     * @param ReflectionInterface $item
+     * @param NamespaceItemInterface $item
      *
      * @throws InvalidItemException
      * @throws RedeclarationException
      */
-    public function addItem(ReflectionInterface $item)
+    public function addItem(NamespaceItemInterface $item)
     {
-        if (
-            $item instanceof ClassReflectionInterface === false &&
-            $item instanceof InterfaceReflectionInterface === false &&
-            $item instanceof FunctionReflectionInterface === false
-        ) {
-            throw new InvalidItemException('Invalid reflection type '.get_class($item).', expected ClassReflectionInterface, InterfaceReflectionInterface or FunctionReflectionInterface');
-        }
-
         if ($item->getNamespace() !== $this) {
             throw new InvalidItemException('Item comes from other namespace');
         }
@@ -284,11 +259,8 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
         if (isset($this->items[$item->getShortName()])) {
             $previous = $this->items[$item->getShortName()];
 
-            $isReplacable = $previous instanceof DummyReflectionInterface && ($item instanceof RuntimeReflectionInterface || $item instanceof StaticReflectionInterface) ||
-                            $previous instanceof RuntimeReflectionInterface && $item instanceof StaticReflectionInterface;
-
-            if ($isReplacable === false) {
-                throw new RedeclarationException("Namespace {$this->getShortName()} already contains {$item->getName()}, previously declarladerd at {$previous->getFileName()}:{$previous->getStartLine()}");
+            if (!$previous->isReplaceableBy($item)) {
+                throw new RedeclarationException("Namespace {$this->getShortName()} already contains {$item->getName()}, previously declared at {$previous->getFileName()}:{$previous->getStartLine()}");
             }
         }
 
@@ -296,7 +268,7 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
     }
 
     /**
-     * Checks, wheter namespace contains given item (class, interface, function)
+     * Checks, whether namespace contains given item (class, interface, function)
      *
      * @param  string $itemName
      * @return bool
@@ -351,18 +323,18 @@ class StaticNamespaceReflection implements NamespaceReflectionInterface, StaticR
         return new CallbackFilterIterator($iterator, $filter);
     }
 
-    /**
-     * Returns namespace global functions iterator
-     *
-     * @return \Iterator
-     */
-    public function getFunctionIterator()
-    {
-        $iterator = new \ArrayIterator($this->items);
-        $filter   = function($current) {
-            return $current instanceof FunctionReflectionInterface;
-        };
-
-        return new CallbackFilterIterator($iterator, $filter);
-    }
+//    /**
+//     * Returns namespace global functions iterator
+//     *
+//     * @return \Iterator
+//     */
+//    public function getFunctionIterator()
+//    {
+//        $iterator = new \ArrayIterator($this->items);
+//        $filter   = function($current) {
+//            return $current instanceof FunctionReflectionInterface;
+//        };
+//
+//        return new CallbackFilterIterator($iterator, $filter);
+//    }
 }

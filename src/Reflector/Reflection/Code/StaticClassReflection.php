@@ -8,6 +8,7 @@ use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\ClassReflectionInterface;
 use Reflector\Iterator\ClassParentIterator;
 use Reflector\Iterator\ClassInterfaceIterator;
+use Reflector\Tokenizer\UnexpectedTokenException;
 
 class StaticClassReflection implements ClassReflectionInterface, StaticReflectionInterface
 {
@@ -171,7 +172,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     /**
      * Returns containing namespace
      *
-     * @return ReflectionNamespaceInterface
+     * @return NamespaceReflectionInterface
      */
     public function getNamespace()
     {

@@ -1,6 +1,7 @@
 <?php
 namespace Reflector\Reflection\Runtime;
 
+use Reflector\Reflection\NamespaceReflectionInterface;
 use Reflector\Tokenizer\Tokenizer;
 use Reflector\Iterator\ClassParentIterator;
 use Reflector\Iterator\ClassInterfaceIterator;

@@ -8,7 +8,7 @@ namespace Reflector\Reflection;
  *
  * @author Josef Martinec <joker806@gmail.com>
  */
-interface InterfaceReflectionInterface extends ReflectionInterface
+interface InterfaceReflectionInterface extends ReflectionInterface, NamespaceItemInterface
 {
     /**
      * Returns the definition file name
@@ -23,27 +23,6 @@ interface InterfaceReflectionInterface extends ReflectionInterface
      * @return int|null
      */
     public function getStartLine();
-
-    /**
-     * Returns the containing namespace
-     *
-     * @return NamespaceReflectionInterface
-     */
-    public function getNamespace();
-
-    /**
-     * Returns the interface name
-     *
-     * @return string
-     */
-    public function getShortName();
-
-    /**
-     * Returns the fully qualified inteface name
-     *
-     * @return string
-     */
-    public function getName();
 
     /**
      * Returns the direct parent interfaces

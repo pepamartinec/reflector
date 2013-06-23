@@ -1,6 +1,8 @@
 <?php
 namespace Reflector\Reflection;
 
+use Reflector\InvalidItemException;
+
 /**
  * Namespace reflection interface
  *
@@ -12,6 +14,13 @@ interface NamespaceReflectionInterface extends ReflectionInterface
 {
     /**
      * Returns the namespace name
+     *
+     * @return string
+     */
+    public function getShortName();
+
+    /**
+     * Returns the fully qualified namespace name
      *
      * @return string
      */
