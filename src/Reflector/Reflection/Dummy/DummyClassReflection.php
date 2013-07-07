@@ -13,15 +13,36 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
     protected $namespace;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string|null
+     */
+    private $file;
+
+    /**
+     * @var int|null
+     */
+    private $line;
+
+    /**
      * Constructs new reflection
      *
      * @param NamespaceReflectionInterface $namespace
-     * @param string                       $name
+     * @param string                       $shortName
+     * @param string|null                  $file
+     * @param int|null                     $line
+     *
+     * @internal param string $name
      */
-    public function __construct(NamespaceReflectionInterface $namespace, $name)
+    public function __construct(NamespaceReflectionInterface $namespace, $shortName, $file = null, $line = null)
     {
         $this->namespace = $namespace;
-        $this->name      = $name;
+        $this->name      = $shortName;
+        $this->file      = $file;
+        $this->line      = $line;
     }
 
     /**
@@ -29,7 +50,7 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
      */
     public function getFileName()
     {
-        return null;
+        return $this->file;
     }
 
     /**
@@ -37,7 +58,7 @@ class DummyClassReflection implements ClassReflectionInterface, DummyReflectionI
      */
     public function getStartLine()
     {
-        return null;
+        return $this->line;
     }
 
     /**

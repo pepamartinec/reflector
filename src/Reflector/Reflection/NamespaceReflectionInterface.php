@@ -34,7 +34,7 @@ interface NamespaceReflectionInterface extends ReflectionInterface
     public function getParent();
 
     /**
-     * Checks if the namespace has given parent
+     * Checks if the namespace has given parent.
      *
      * @param  string $parentName
      * @return bool

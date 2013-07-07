@@ -3,8 +3,7 @@ namespace Reflector\Reflection\Runtime;
 
 use Reflector\Iterator\InterfaceParentIterator;
 use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Tokenizer\Tokenizer;
-use Reflector\ReflectionFactory;
+use Reflector\ReflectionRegistry;
 use Reflector\Reflection\Runtime\RuntimeReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 
@@ -29,18 +28,18 @@ class RuntimeInterfaceReflection implements InterfaceReflectionInterface, Runtim
      * Constructs new reflection
      *
      * @param \ReflectionClass  $reflection
-     * @param ReflectionFactory $f
+     * @param ReflectionRegistry $registry
      */
-    public function __construct(\ReflectionClass $reflection, ReflectionFactory $f)
+    public function __construct(\ReflectionClass $reflection, ReflectionRegistry $registry)
     {
         $this->reflection = $reflection;
 
-        list($nsName, $itName) = Tokenizer::explodeName('\\' . $this->reflection->getName());
-        $this->namespace = $f->getNamespace($nsName);
+        list($nsName, $myName) = $registry::explodeItemName($this->reflection->getName());
+        $this->namespace       = $registry->getNamespace($nsName);
 
         $this->parents = array();
         foreach ($reflection->getInterfaces() as $parent) {
-            $this->parents[] = new RuntimeInterfaceReflection($parent, $f);
+            $this->parents[] = new RuntimeInterfaceReflection($parent, $registry);
         }
     }
 

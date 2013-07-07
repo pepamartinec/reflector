@@ -1,12 +1,11 @@
 <?php
 namespace Reflector\Reflection\Code;
 
-use Reflector\AliasResolver;
 use Reflector\Iterator\InterfaceParentIterator;
 use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\InterfaceReflectionInterface;
 use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Tokenizer\Tokenizer;
+use Reflector\ReflectionRegistry;
 
 class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticReflectionInterface
 {
@@ -36,43 +35,26 @@ class StaticInterfaceReflection implements InterfaceReflectionInterface, StaticR
     protected $parents;
 
     /**
-     * Constructs new interface reflection
+     * Constructs new class reflection.
      *
-     * @param NamespaceReflectionInterface $namespace
-     * @param Tokenizer                    $t
-     * @param AliasResolver                $r
+     * @param \PHPParser_Node_Stmt_Interface $node
+     * @param ReflectionRegistry             $registry
      */
-    public function __construct(NamespaceReflectionInterface $namespace, Tokenizer $t, AliasResolver $r)
+    public function __construct(\PHPParser_Node_Stmt_Interface $node, ReflectionRegistry $registry)
     {
-        $this->namespace = $namespace;
-        $this->file      = $t->getFile();
-        $this->line      = $t->getLine();
+        list($nsName, $myName) = $registry::explodeItemName($node->name);
 
-        // T_INTERFACE
-        $t->expectToken(T_INTERFACE);
-        $token = $t->nextToken();
+        $this->file       = $node->filename;
+        $this->line       = $node->getLine();
+        $this->namespace  = $registry->getNamespace($nsName);
+        $this->name       = $myName;
+        $this->parents    = array();
 
-        // name
-        $t->expectToken(T_STRING);
-        $this->name = $token[1];
-        $token      = $t->nextToken();
-
-        // T_EXTENDS
-        $this->parents = array();
-
-        if ($t->checkToken(T_EXTENDS)) {
-            do {
-                $token = $t->nextToken();
-
-                $name  = null;
-                $token = $t->parseName($name);
-
-                $this->parents[] = $r->getInterface($this->namespace, $name);
-            } while ($token == ',');
+        foreach ($node->extends as $parent) {
+            $this->interfaces[] = $registry->getInterface($parent->toString(), $this->file, $this->line);
         }
 
-        // parse body
-        $t->parseBracketsBlock();
+        $this->namespace->addItem($this);
     }
 
     /**

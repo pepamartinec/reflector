@@ -1,19 +1,48 @@
 <?php
 namespace Reflector;
 
+use Reflector\NodeVisitor\ConstructingNodeVisitor;
+use Reflector\NodeVisitor\FilenameNodeVisitor;
+use Reflector\Reflection\ClassReflectionInterface;
+use Reflector\Reflection\InterfaceReflectionInterface;
+use Reflector\Reflection\NamespaceReflectionInterface;
+
 class Reflector
 {
     /**
-     * @var ReflectionFactory
+     * @var ReflectionRegistry
      */
-    protected $factory;
+    protected $registry;
+
+    /**
+     * @var \PHPParser_Parser
+     */
+    private $parser;
+
+    /**
+     * @var \PHPParser_NodeTraverser
+     */
+    private $traverser;
+
+    /**
+     * @var FilenameNodeVisitor
+     */
+    private $filenameVisitor;
 
     /**
      * Constructs new ReflectionFactory
      */
     public function __construct()
     {
-        $this->factory = new ReflectionFactory();
+        $this->registry  = new ReflectionRegistry();
+        $this->parser    = new \PHPParser_Parser();
+        $this->traverser = new \PHPParser_NodeTraverser();
+
+        $this->filenameVisitor = new FilenameNodeVisitor();
+
+        $this->traverser->addVisitor(new \PHPParser_NodeVisitor_NameResolver());
+        $this->traverser->addVisitor($this->filenameVisitor);
+        $this->traverser->addVisitor(new ConstructingNodeVisitor($this->registry));
     }
 
     /**
@@ -21,6 +50,8 @@ class Reflector
      *
      * @param string $dirName
      * @param bool   $recursive
+     *
+     * @throws InvalidFileException
      */
     public function analyzeDirectory($dirName, $recursive = true)
     {
@@ -36,6 +67,7 @@ class Reflector
             $iterator = new \DirectoryIterator($dirName);
         }
 
+        /** @var $item \SplFileInfo */
         foreach ($iterator as $item) {
             if ($item->isDir()) {
                 continue;
@@ -50,38 +82,51 @@ class Reflector
     }
 
     /**
-     * Analyzes whole file and returns found namespaces
+     * Analyzes single file.
      *
-     * @param string $fileName
+     * @param string $filename
      *
      * @throws InvalidFileException
-     * @throws InvalidSyntaxException
      */
     public function analyzeFile($filename)
     {
-        $this->factory->analyzeFile($filename);
+        if (!is_file($filename)) {
+            throw new InvalidFileException($filename);
+        }
+
+        $this->filenameVisitor->setFilename($filename);
+
+        $this->analyzeCode(file_get_contents($filename));
     }
 
     /**
-     * Return namespaces iterator
+     * Analyzes source code.
      *
-     * @return \Iterator
+     * @param string $code
      */
-    public function getNamespacesIterator()
+    public function analyzeCode($code)
     {
-        return new \ArrayIterator($this->namespaces);
+        $lexer = new \PHPParser_Lexer_Emulative($code);
+
+        try {
+            $stmts = $this->parser->parse($lexer);
+            $stmts = $this->traverser->traverse($stmts);
+
+        } catch (\PHPParser_Error $e) {
+            // TODO
+        }
     }
 
     /**
      * Returns namespace reflection
      *
-     * @param  string                            $name fully classified namespace name
+     * @param  string $name fully qualified namespace name
      * @return NamespaceReflectionInterface|null
      */
     public function getNamespace($name)
     {
-        if ($this->factory->hasNamespace($name)) {
-            return $this->factory->getNamespace($name);
+        if ($this->registry->hasNamespace($name)) {
+            return $this->registry->getNamespace($name);
 
         } else {
             return null;
@@ -91,13 +136,13 @@ class Reflector
     /**
      * Returns reflection for given interface
      *
-     * @param  string                            $name fully qualified interface name
+     * @param  string $name fully qualified interface name
      * @return InterfaceReflectionInterface|null
      */
     public function getInterface($name)
     {
-        if ($this->factory->hasInterface($name)) {
-            return $this->factory->getInterface($name);
+        if ($this->registry->hasInterface($name)) {
+            return $this->registry->getInterface($name);
 
         } else {
             return null;
@@ -107,13 +152,13 @@ class Reflector
     /**
      * Returns reflection for given class
      *
-     * @param  string                        $name fully qualified class name
+     * @param  string $name fully qualified class name
      * @return ClassReflectionInterface|null
      */
     public function getClass($name)
     {
-        if ($this->factory->hasClass($name)) {
-            return $this->factory->getClass($name);
+        if ($this->registry->hasClass($name)) {
+            return $this->registry->getClass($name);
 
         } else {
             return null;

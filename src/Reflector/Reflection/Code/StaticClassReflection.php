@@ -1,14 +1,12 @@
 <?php
 namespace Reflector\Reflection\Code;
 
-use Reflector\AliasResolver;
 use Reflector\Iterator\ClassInterfaceIterator;
 use Reflector\Iterator\ClassParentIterator;
 use Reflector\Reflection\ClassReflectionInterface;
 use Reflector\Reflection\Code\StaticReflectionInterface;
 use Reflector\Reflection\NamespaceReflectionInterface;
-use Reflector\Tokenizer\Tokenizer;
-use Reflector\Tokenizer\UnexpectedTokenException;
+use Reflector\ReflectionRegistry;
 
 class StaticClassReflection implements ClassReflectionInterface, StaticReflectionInterface
 {
@@ -25,22 +23,17 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     /**
      * @var int
      */
-    protected $startLine;
-
-    /**
-     * @var int
-     */
-    protected $endLine;
+    protected $line;
 
     /**
      * @var bool
      */
-    protected $_isAbstract;
+    protected $abstract;
 
     /**
      * @var bool
      */
-    protected $_isFinal;
+    protected $final;
 
     /**
      * @var string
@@ -58,85 +51,33 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
     protected $interfaces;
 
     /**
-     * Constructs new object reflection
+     * Constructs new class reflection.
      *
-     * @param NamespaceReflectionInterface $namespace
-     * @param Tokenizer                    $t
-     * @param AliasResolver                $r
-     *
-     * @throws UnexpectedTokenException
+     * @param \PHPParser_Node_Stmt_Class $node
+     * @param ReflectionRegistry         $registry
      */
-    public function __construct(NamespaceReflectionInterface $namespace, Tokenizer $t, AliasResolver $r)
+    public function __construct(\PHPParser_Node_Stmt_Class $node, ReflectionRegistry $registry)
     {
-        $this->namespace = $namespace;
-        $this->file      = $t->getFile();
-        $this->startLine = $t->getLine();
+        list($nsName, $myName) = $registry::explodeItemName($node->namespacedName->toString());
 
-        $token = $t->getToken();
-
-        // abstract, final
-        $this->_isAbstract = false;
-        $this->_isFinal    = false;
-
-        while ($t->checkToken(T_CLASS) === false) {
-            switch ($token[0]) {
-                case T_ABSTRACT:
-                    $this->_isAbstract = true;
-                    break;
-
-                case T_FINAL:
-                    $this->_isFinal = true;
-                    break;
-
-                default:
-                    throw new UnexpectedTokenException($token);
-            }
-
-            $token = $t->nextToken();
-        }
-
-        $token = $t->nextToken();
-
-        // name
-        $t->expectToken(T_STRING);
-        $this->name = $token[1];
-        $token      = $t->nextToken();
-
-        // extends, implements
-        $this->interfaces = array();
+        $this->file       = $node->filename;
+        $this->line       = $node->getLine();
+        $this->namespace  = $registry->getNamespace($nsName);
+        $this->abstract   = $node->type & $node::MODIFIER_ABSTRACT;
+        $this->final      = $node->type & $node::MODIFIER_FINAL;
+        $this->name       = $myName;
         $this->parent     = null;
+        $this->interfaces = array();
 
-        while ($t->checkToken('{') === false) {
-            switch ($token[0]) {
-                case T_EXTENDS:
-                    $token = $t->nextToken();
-
-                    $name  = null;
-                    $token = $t->parseName($name);
-
-                    $this->parent = $r->getClass($this->namespace, $name);
-                    break;
-
-                case T_IMPLEMENTS:
-                    do {
-                        $token = $t->nextToken();
-
-                        $name  = null;
-                        $token = $t->parseName($name);
-
-                        $this->interfaces[] = $r->getInterface($this->namespace, $name);
-                    } while ($token == ',');
-                    break;
-
-                default:
-                    throw new UnexpectedTokenException($token);
-            }
+        if ($node->extends) {
+            $this->parent = $registry->getClass($node->extends->toString(), $this->file, $this->line);
         }
 
-        // parse body
-        $t->parseBracketsBlock();
+        foreach ($node->implements as $interface) {
+            $this->interfaces[] = $registry->getInterface($interface->toString(), $this->file, $this->line);
+        }
 
-        $this->endLine = $t->getLine();
+        $this->namespace->addItem($this);
     }
 
     /**
@@ -152,7 +93,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
      */
     public function getStartLine()
     {
-        return $this->startLine;
+        return $this->line;
     }
 
     /**
@@ -244,7 +185,7 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
      */
     public function isAbstract()
     {
-        return $this->_isAbstract;
+        return $this->abstract;
     }
 
     /**
@@ -252,6 +193,6 @@ class StaticClassReflection implements ClassReflectionInterface, StaticReflectio
      */
     public function isFinal()
     {
-        return $this->_isFinal;
+        return $this->final;
     }
 }
